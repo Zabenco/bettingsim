@@ -3,7 +3,7 @@ services:
     name: betting-sim
     env: python
     buildCommand: ""
-    startCommand: gunicorn main:app
+    startCommand: gunicorn app:app
     envVars:
       - key: FLASK_ENV
         value: production
