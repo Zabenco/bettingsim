@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Sports Betting Simulation Results</title>
+    <script>
+        function toggleDetails(dayId) {
+            const detailsRow = document.getElementById(`details-${dayId}`);
+            if (detailsRow.style.display === "none") {
+                detailsRow.style.display = "table-row";
+            } else {
+                detailsRow.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="button-group">
+        <button onclick="window.location.href='/'">Adjust Parameters</button>
+        <button type="submit">Run Simulation Again</button>
+    </div>
+
+    {% if simulation_results %}
+    <table border="1">
+        <tr>
+            <th>Day</th>
+            <th>Bankroll</th>
+            <th>Take Home</th>
+            <th>Backup Fund</th>
+        </tr>
+        {% for result in simulation_results %}
+        <tr onclick="toggleDetails({{ result[0] }})" style="cursor: pointer;">
+            <td>{{ result[0] }}</td>
+            <td>${{ "{:.2f}".format(result[1]) }}</td>
+            <td>${{ "{:.2f}".format(result[2]) }}</td>
+            <td>${{ "{:.2f}".format(result[3]) }}</td>
+        </tr>
+        <tr id="details-{{ result[0] }}" style="display: none;">
+            <td colspan="4">
+                <strong>Betting Details:</strong>
+                <ul>
+                    {% for bet in result[4] %}
+                    <li>Bet Amount: ${{ "{:.2f}".format(bet['bet_amount']) }}, Profit: ${{ "{:.2f}".format(bet['profit']) }}, Win: {{ "Yes" if bet['win'] else "No" }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="analysis">
+        <div>{{ analysis | safe }}</div>
+    </div>
+    {% endif %}
+
+</body>
+</html>
