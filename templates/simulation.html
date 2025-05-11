@@ -26,10 +26,10 @@
     {% if simulation_results %}
     <table border="1">
         <tr>
-            <th>Day</th>
+            <th>Game</th>
             <th>Bankroll</th>
             <th>Take Home</th>
-            <th>Backup Fund</th>
+            <th>Rainy Day Fund</th>
         </tr>
         {% for result in simulation_results %}
         <tr onclick="toggleDetails({{ result[0] }})" style="cursor: pointer;">

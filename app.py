@@ -4,7 +4,7 @@ import random
 import openai
 
 # Replace 'your-api-key' with your actual OpenAI API key
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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 delete here to enable gpt"
 openai.api_key = OPENAI_API_KEY
 
 app = Flask(__name__)
